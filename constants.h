@@ -26,7 +26,12 @@
 #define RUNNING_CONST 1
 #define STOPPED_CONST 0
 #define PS_64_A 2
+#define PS_1 0
 #define SCAN_DELAY 1000
+#define BIT_COMPARE_16 0
+#define TIMER3 1
+#define TIMER2 0
+#define PWM_MODE 0b110
 
 #ifdef	__cplusplus
 extern "C" {

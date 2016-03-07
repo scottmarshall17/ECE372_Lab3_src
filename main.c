@@ -37,7 +37,6 @@ volatile char timer_flag;   /*The timer flag increments every 10ms*/
  */
 int main(void)
 {
-    
     SYSTEMConfigPerformance(10000000);
     enableInterrupts();
     myState = ENTER_PHASE;
@@ -108,13 +107,13 @@ void __ISR(_CHANGE_NOTICE_VECTOR, IPL7SRS) _CNInterrupt(void){
     //TODO: Implement the interrupt to capture the press of the button
     PORTB;
     IFS1bits.CNBIF = FLAG_DOWN;
-    IFS0bits.T3IF = 0;      //lower timer 2 flag for delay
-    TMR3 = 0;  
-    PR3 = 10000;//manually clear timer 2 register
-    T3CONbits.ON = 1;       //turn timer 2 on.
-    while(IFS0bits.T3IF != 1){};    //5ms delay
-    T3CONbits.ON = 0;       //turn off timer 3
-    IFS0bits.T3IF = 0;
+    IFS0bits.T4IF = 0;      //lower timer 4 flag for delay
+    TMR4 = 0;  
+    PR4 = 10000;//manually clear timer 4 register
+    T4CONbits.ON = 1;       //turn timer 4 on.
+    while(IFS0bits.T4IF != 1){};    //5ms delay
+    T4CONbits.ON = 0;       //turn off timer 4
+    IFS0bits.T4IF = 0;
     read = PORTBbits.RB12;
     if(1){
         switch(myState) {

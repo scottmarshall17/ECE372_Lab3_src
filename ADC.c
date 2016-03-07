@@ -1,6 +1,6 @@
 
 #include <xc.h>
-#include "config.h"
+#include "constants.h"
 #include "ADC.h"
 
 void initADC() {

@@ -46,14 +46,27 @@ void initTimers() {
     T1CONbits.ON = ENABLED;
     // 1 second. Enable its interrupt
     
-    //-----------------------------------------------
-    T3CONbits.TCKPS = PS_8_B;
+    //----------Timer 3 configured below--------------------
+    T3CONbits.TCKPS = PS_1;
     T3CONbits.TCS = 0;  //default clock
     T3CONbits.SIDL = DISABLED;
     IFS0bits.T3IF = FLAG_DOWN;  //puts the flag down
+    T3CONbits.TON = 1;  //required for PWM mode
 //    IPC3bits.T3IP = 7;   //sets timer priority level to 7
     TMR3 = 0;
-    PR3 = 195;
+    PR3 = 1000;
     //IEC0bits.T3IE = ENABLED;     //enables the interrupt flag   SAME AS ABOVE
     T3CONbits.ON = 0;
+    
+    //----------Timer 4 configured below--------------------
+    T4CONbits.TCKPS = PS_8_B;
+    T4CONbits.TCS = 0;  //default clock
+    T4CONbits.SIDL = DISABLED;
+    IFS0bits.T4IF = FLAG_DOWN;  //puts the flag down
+//    IPC3bits.T3IP = 7;   //sets timer priority level to 7
+    TMR4 = 0;
+    PR4 = 195;
+    //IEC0bits.T3IE = ENABLED;     //enables the interrupt flag   SAME AS ABOVE
+    T4CONbits.ON = 0;
+    
 }
