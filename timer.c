@@ -54,7 +54,7 @@ void initTimers() {
     T3CONbits.TON = 1;  //required for PWM mode
 //    IPC3bits.T3IP = 7;   //sets timer priority level to 7
     TMR3 = 0;
-    PR3 = 1000;
+    PR3 = 1024;
     //IEC0bits.T3IE = ENABLED;     //enables the interrupt flag   SAME AS ABOVE
     T3CONbits.ON = 0;
     

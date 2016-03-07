@@ -51,6 +51,11 @@
 /* The toggleE() function turns the E signal on for E_DELAY microseconds and off for E_DELAY us
  */
 
+
+void myItoa(int num, char result[]) {
+    return;
+}
+
 void toggleE() {
     delayUs(5);
     LATCbits.LAT_E = ENABLED;

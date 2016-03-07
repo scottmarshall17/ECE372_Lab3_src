@@ -32,6 +32,10 @@
 #define TIMER3 1
 #define TIMER2 0
 #define PWM_MODE 0b110
+#define INTEGER 0
+#define AUTO 0b111
+#define NO_SCAN 0
+
 
 #ifdef	__cplusplus
 extern "C" {

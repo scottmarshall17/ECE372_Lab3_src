@@ -23,8 +23,7 @@
 
 
 typedef enum state_enum {
-  ENTER_PHASE, SCANNING_R0, SCANNING_R1, SCANNING_R2, SCANNING_R3, READ_INPUT, WRITELCD, PASS_CHECK,
-          VALID, INVALID, SET_PASS, STORE_PASS
+    INIT, READ_ADC, SET_PWM, PRINT_LCD
 } state_t;
 
 
@@ -37,53 +36,50 @@ volatile char timer_flag;   /*The timer flag increments every 10ms*/
  */
 int main(void)
 {
+    int voltageADC = 0;
+    int lastVoltage = 0;
+    char charToWrite = 0;
+    char numberToPrint[5] = {' ', ' ',  ' ',  ' ',  '\0'};
     SYSTEMConfigPerformance(10000000);
     enableInterrupts();
-    myState = ENTER_PHASE;
+    myState = INIT;
     initLEDs();
     initTimers();
     initLCD();
     initKeypad();
-    moveCursorLCD(0, 0);
+    initPWM();
+    initADC();
     
     while(1)
     {
         switch(myState) {
-            case ENTER_PHASE:
+            case INIT:
+                myState = READ_ADC;
+                break;
+            case READ_ADC:
+                voltageADC = ADC1BUF0;
+                delayUs(1000);
+                myState = SET_PWM;
+                break;
+            case SET_PWM:
+                OC3RS = voltageADC;
                 
+                if(voltageADC != lastVoltage) {
+                    lastVoltage = voltageADC;
+                    myState = PRINT_LCD;
+                }
+                else {
+                    myState = READ_ADC;
+                }
                 break;
-            case SCANNING_R0:
-               
-                break;
-            case SCANNING_R1:
-               
-                break;
-            case SCANNING_R2:
-                
-                break;
-            case SCANNING_R3:
-                
-                break;
-            case READ_INPUT:
-                
-                break;
-            case WRITELCD:
-                
-                break;
-            case PASS_CHECK:
-                
-                break;
-            case VALID:
-                
-                break;
-            case INVALID:
-                
-                break;
-            case SET_PASS:
-                
-                break;
-            case STORE_PASS:
-                
+            case PRINT_LCD:
+                itoa(numberToPrint, voltageADC, 10);
+                clearLCD();
+                delayUs(10000);
+                moveCursorLCD(0, 5);
+                printStringLCD(numberToPrint);
+                delayUs(30000);
+                myState = READ_ADC;
                 break;
         }
     }
@@ -117,18 +113,6 @@ void __ISR(_CHANGE_NOTICE_VECTOR, IPL7SRS) _CNInterrupt(void){
     read = PORTBbits.RB12;
     if(1){
         switch(myState) {
-            case SCANNING_R0:
-                myState = READ_INPUT;
-                break;
-            case SCANNING_R1:
-                myState = READ_INPUT;
-                break;
-            case SCANNING_R2:
-                myState = READ_INPUT;
-                break;
-            case SCANNING_R3:
-                myState = READ_INPUT;
-                break;
             default:
                 myState = myState;
                 break;

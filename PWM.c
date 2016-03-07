@@ -22,8 +22,8 @@ void initPWM() {
     
     //------OC4 Config------------
     
-    OC4R = 500;     //initial Duty Cycle
-    OC4RS = 500;    //next Duty cycle
+    OC4R = 200;     //initial Duty Cycle
+    OC4RS = 200;    //next Duty cycle
     
     OC4CONbits.SIDL = 0;
     OC4CONbits.OC32 = BIT_COMPARE_16;
@@ -33,6 +33,7 @@ void initPWM() {
     //----Turn On OC3 and OC4-----
     
     T3CONbits.TCKPS = PS_1;
+    T3CONbits.ON = ENABLED;
     
     OC3CONbits.ON = ENABLED;
     OC4CONbits.ON = ENABLED;
