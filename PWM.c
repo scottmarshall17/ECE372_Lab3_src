@@ -3,3 +3,7 @@
 #include "config.h"
 #include "PWM.h"
 
+void initPWM() {
+    
+    return;
+}
