@@ -103,12 +103,14 @@ int main(void)
                 }
                 break;
             case PRINT_LCD:
-                itoa(numberToPrint, voltageADC, 10);
+                /*itoa(numberToPrint, voltageADC, 10);
                 clearLCD();
                 delayUs(10000);
                 moveCursorLCD(0, 5);
                 printStringLCD(numberToPrint);
                 delayUs(30000);
+                 */
+                printVoltage(voltageADC);
                 myState = READ_ADC;
                 break;
         }

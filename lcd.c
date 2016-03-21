@@ -571,9 +571,29 @@ void printTime(int totalTime, char header){
 }
 
 void printVoltage(int voltage) {
-    float fraction = voltage/1023;
-    float val = 3.3 * fraction;
+    char numToPrint[] = {'0', '.', '0', '0', '\0'};
+    float val = voltage * 0.003222;
+    float digits = 0.0f;
+    int i = 0;
+    int tempNum = 0;
+    digits = val * 100;
     
+    for(i = 3; i >= 0; --i) {
+        if(i == 1) {
+            continue;
+        }
+        else {
+            tempNum = (int)digits%10;
+            numToPrint[i] = '0' + tempNum;
+            digits = digits/10;
+        }
+    }
+    
+    clearLCD();
+    delayUs(10000);
+    moveCursorLCD(0, 5);
+    printStringLCD(numToPrint);
+    delayUs(30000);
     
     return;
 }
