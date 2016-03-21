@@ -65,9 +65,17 @@ int main(void)
             case SET_DIRECTION:
                 if(voltageADC >= 512) {
                     direction = FORWARD;
+                    LATGbits.LATG13 = ENABLED;
+                    LATDbits.LATD5 = DISABLED;
+                    LATGbits.LATG15 = ENABLED;
+                    LATGbits.LATG12 = DISABLED;
                 }
                 else {
                     direction = REVERSE;
+                    LATGbits.LATG13 = DISABLED;
+                    LATDbits.LATD5 = ENABLED;
+                    LATGbits.LATG15 = DISABLED;
+                    LATGbits.LATG12 = ENABLED;
                 }
                 
                 myState = SET_PWM;
@@ -84,7 +92,6 @@ int main(void)
                     OC3RS = 512 - voltageADC;
                     OC4RS = 512 - voltageADC;
                 }
-                OC3RS = voltageADC;
                 
                 if(voltageADC != lastVoltage) {
                     lastVoltage = voltageADC;
