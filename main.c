@@ -68,14 +68,15 @@ int main(void)
                     LATGbits.LATG13 = ENABLED;
                     LATDbits.LATD5 = DISABLED;
                     LATGbits.LATG15 = ENABLED;
-                    LATGbits.LATG12 = DISABLED;
+                    LATDbits.LATD11 = DISABLED;
                 }
                 else {
                     direction = REVERSE;
+                    LATDbits.LATD11 = ENABLED;
                     LATGbits.LATG13 = DISABLED;
                     LATDbits.LATD5 = ENABLED;
                     LATGbits.LATG15 = DISABLED;
-                    LATGbits.LATG12 = ENABLED;
+                    
                 }
                 
                 myState = SET_PWM;
@@ -84,13 +85,13 @@ int main(void)
                 
                 if(direction == FORWARD) {
                     //We know the ADC is greater than or equal to 512
-                    OC3RS = voltageADC - 512;
-                    OC4RS = voltageADC - 512;
+                    OC3RS = voltageADC;
+                    OC4RS = voltageADC;
                 }
                 if(direction == REVERSE) {
                     //We know the ADC is less than 512
-                    OC3RS = 512 - voltageADC;
-                    OC4RS = 512 - voltageADC;
+                    OC3RS = 1023 - voltageADC;
+                    OC4RS = 1023 - voltageADC;
                 }
                 
                 if(voltageADC != lastVoltage) {

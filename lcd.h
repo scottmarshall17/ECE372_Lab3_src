@@ -17,3 +17,4 @@ void testLCD();
 void myTestLCD();
 void printTime(int totalTime, char header);
 void myItoa(int num, char result[]);
+void printVoltage(int voltage);

@@ -569,3 +569,11 @@ void printTime(int totalTime, char header){
     printCharLCD((ms%10)|(0b00110000));
     
 }
+
+void printVoltage(int voltage) {
+    float fraction = voltage/1023;
+    float val = 3.3 * fraction;
+    
+    
+    return;
+}

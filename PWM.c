@@ -7,7 +7,7 @@ void initPWM() {
     TRISGbits.TRISG13 = OUTPUT;     //For first motor - in1
     TRISDbits.TRISD5 = OUTPUT;      //--in2
     TRISGbits.TRISG15 = OUTPUT;     //For second motor - in1
-    TRISGbits.TRISG12 = OUTPUT;     //--in2
+    TRISDbits.TRISD11 = OUTPUT;     //--in2
     
     TRISGbits.TRISG0 = OUTPUT;
     TRISFbits.TRISF1 = OUTPUT;
