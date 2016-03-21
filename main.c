@@ -23,7 +23,7 @@
 
 
 typedef enum state_enum {
-    INIT, READ_ADC, SET_PWM, PRINT_LCD
+    INIT, READ_ADC, SET_PWM, PRINT_LCD, FORWARD, REVERSE
 } state_t;
 
 
@@ -36,6 +36,7 @@ volatile char timer_flag;   /*The timer flag increments every 10ms*/
  */
 int main(void)
 {
+    state_t direction = FORWARD;
     int voltageADC = 0;
     int lastVoltage = 0;
     char charToWrite = 0;
