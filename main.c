@@ -23,7 +23,7 @@
 
 
 typedef enum state_enum {
-    INIT, READ_ADC, SET_PWM, PRINT_LCD, FORWARD, REVERSE
+    INIT, READ_ADC, SET_PWM, SET_DIRECTION, PRINT_LCD, FORWARD, REVERSE
 } state_t;
 
 
@@ -60,9 +60,30 @@ int main(void)
             case READ_ADC:
                 voltageADC = ADC1BUF0;
                 delayUs(1000);
+                myState = SET_DIRECTION;
+                break;
+            case SET_DIRECTION:
+                if(voltageADC >= 512) {
+                    direction = FORWARD;
+                }
+                else {
+                    direction = REVERSE;
+                }
+                
                 myState = SET_PWM;
                 break;
             case SET_PWM:
+                
+                if(direction == FORWARD) {
+                    //We know the ADC is greater than or equal to 512
+                    OC3RS = voltageADC - 512;
+                    OC4RS = voltageADC - 512;
+                }
+                if(direction == REVERSE) {
+                    //We know the ADC is less than 512
+                    OC3RS = 512 - voltageADC;
+                    OC4RS = 512 - voltageADC;
+                }
                 OC3RS = voltageADC;
                 
                 if(voltageADC != lastVoltage) {
