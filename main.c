@@ -58,11 +58,14 @@ int main(void)
                 myState = READ_ADC;
                 break;
             case READ_ADC:
-                voltageADC = ADC1BUF0;
+                //QA: incrementing the ADC to cycle through speeds/forwards/backwards
+                voltageADC++;
                 delayUs(1000);
                 myState = SET_DIRECTION;
                 break;
             case SET_DIRECTION:
+                //After maximum value reached, don't do anything
+                if (voltageADC > 1023) while(1);
                 if(voltageADC >= 512) {
                     direction = FORWARD;
                     LATGbits.LATG13 = ENABLED;
